@@ -58,7 +58,7 @@ public class Accounts {
 
         DataBase.addUser(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(user);
 
     }
 }

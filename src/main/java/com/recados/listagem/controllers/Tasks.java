@@ -75,6 +75,9 @@ public class Tasks {
 
         if(userOptinal == null) return ResponseEntity.badRequest().body(new ErrorData("Usuario invalido"));
 
+        if (userOptinal.getTasks().stream().filter(task -> task.getId().equals(id)).findFirst().isEmpty())
+            return  ResponseEntity.badRequest().body(new ErrorData("tarefa não encontrada"));
+
         userOptinal.getTasks().clear();
         return ResponseEntity.noContent().build();
     }
@@ -86,6 +89,9 @@ public class Tasks {
 
         if(userOptinal == null) return ResponseEntity.badRequest().body(new ErrorData("Usuario invalido"));
 
+        if (userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findFirst().isEmpty())
+            return  ResponseEntity.badRequest().body(new ErrorData("tarefa não encontrada"));
+
         userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findFirst().get().updateTask(data);
         return ResponseEntity.ok().build();
     }
@@ -95,6 +101,9 @@ public class Tasks {
         var userOptinal = DataBase.getUserById(idUser);
 
         if(userOptinal == null) return ResponseEntity.badRequest().body(new ErrorData("Usuario invalido"));
+
+        if (userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findFirst().isEmpty())
+            return  ResponseEntity.badRequest().body(new ErrorData("tarefa não encontrada"));
 
         userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findAny().get().file();
         return ResponseEntity.noContent().build();
