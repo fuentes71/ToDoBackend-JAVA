@@ -52,7 +52,7 @@ public class Tasks {
         var task = new Task(newTask.message(), newTask.title());
 
         userOptinal.getTasks().add(task);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(userOptinal);
     }
 
     @DeleteMapping("/{idUser}/{idTask}")
@@ -66,8 +66,7 @@ public class Tasks {
         if (taskOptinal.isEmpty()) return ResponseEntity.badRequest().body(new ErrorData("Recado não encontrado"));
 
         userOptinal.getTasks().removeIf(task -> task.getId().equals(idTask));
-        return ResponseEntity.noContent().build();
-    }
+        return ResponseEntity.ok().body(userOptinal);    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAllTasks(@PathVariable UUID id){
@@ -79,8 +78,7 @@ public class Tasks {
             return  ResponseEntity.badRequest().body(new ErrorData("tarefa não encontrada"));
 
         userOptinal.getTasks().clear();
-        return ResponseEntity.noContent().build();
-    }
+        return ResponseEntity.ok().body(userOptinal);    }
 
 
     @PutMapping("/{idUser}/{idTask}")
@@ -93,8 +91,7 @@ public class Tasks {
             return  ResponseEntity.badRequest().body(new ErrorData("tarefa não encontrada"));
 
         userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findFirst().get().updateTask(data);
-        return ResponseEntity.ok().build();
-    }
+        return ResponseEntity.ok().body(userOptinal);    }
 
     @PutMapping("/file/{idUser}/{idTask}")
     public ResponseEntity fileTask(@PathVariable UUID idUser,@PathVariable UUID idTask){
@@ -106,8 +103,7 @@ public class Tasks {
             return  ResponseEntity.badRequest().body(new ErrorData("tarefa não encontrada"));
 
         userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findAny().get().file();
-        return ResponseEntity.noContent().build();
-
+        return ResponseEntity.ok().body(userOptinal);
     }
 
     @PutMapping("/done/{idUser}/{idTask}")
@@ -117,7 +113,6 @@ public class Tasks {
         if(userOptinal == null) return ResponseEntity.badRequest().body(new ErrorData("Usuario invalido"));
 
         userOptinal.getTasks().stream().filter(task -> task.getId().equals(idTask)).findAny().get().done();
-        return ResponseEntity.noContent().build();
-
+        return ResponseEntity.ok().body(userOptinal);
     }
 }

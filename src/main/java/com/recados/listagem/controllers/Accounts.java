@@ -6,13 +6,13 @@ import com.recados.listagem.dtos.ErrorData;
 import com.recados.listagem.dtos.LoggedProfile;
 import com.recados.listagem.models.Profile;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("accounts")
 public class Accounts {
-
 
 
     @GetMapping
