@@ -49,7 +49,7 @@ public class Tasks {
 
         if (newTask.message().length() < 5) return ResponseEntity.badRequest().body(new ErrorData("Titulo precisa conter 5 ou mais caracteres"));
 
-        var task = new Task(newTask.message(), newTask.title());
+        var task = new Task(newTask.title(), newTask.message());
 
         userOptinal.getTasks().add(task);
         return ResponseEntity.ok().body(userOptinal);
